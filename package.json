@@ -1,0 +1,23 @@
+{
+  "name": "pdfparser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rcordobar19-mbm/pdf-parser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rcordobar19-mbm/pdf-parser/issues"
+  },
+  "homepage": "https://github.com/rcordobar19-mbm/pdf-parser#readme"
+}
