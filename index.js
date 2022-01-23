@@ -1,23 +1,26 @@
-const fs = require('fs');
-const pdf = require('pdf-parse');
-const util = require('util');
-// TODO: Auto Detect pdf files and loop over them.
-let dataBuffer = fs.readFileSync('./pdf/dummy.pdf');
+const fs = require("fs");
+const pdf = require("pdf-parse");
 
-pdf(dataBuffer).then(function (data) {
-    var info = data.text;
-    var email = info.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi);
+let directory = "./pdf/";
 
-    // exclutions
-    // TODO: Make exclutions an array.
-    var arr = [];
-    // arr = email.filter(e => e !== 'dap@mybusinessmatches.com');
-    // arr = arr.filter(e => e !== 'michal@mybusinessmatches.com');
-    // arr = arr.filter(e => e !== 'no-reply@amazonaws.com');
-    // arr = arr.filter(e => e !== 'no-reply@sns.amazonaws.com');
+filenames = fs.readdirSync(directory, { encoding: "utf8" });
+filenames = filenames.filter(filename => filename.split(".")[1] == "pdf");
 
-    const uniqueSet = new Set(arr);
-    const emails = [...uniqueSet];
+console.log("\nReading:");
+console.log(filenames);
 
-    fs.appendFileSync("emails.txt", emails, "UTF-8", { 'flags': 'a+' });
+filenames.forEach(file => {
+	let dataBuffer = fs.readFileSync(directory + file);
+
+	pdf(dataBuffer).then(function (data) {
+		var email = data.text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi);
+
+		// exclutions
+		var arr = [];
+		arr = email.filter(e => e !== "email@example.com");
+
+		const emails = [...new Set(arr)];
+
+		fs.appendFileSync("emails.txt", emails, "UTF-8", { flags: "a+" });
+	});
 });
